@@ -1,4 +1,4 @@
-import { Children, useEffect, useState } from "react";
+import { Children, useState } from "react";
 
 const tempMovieData = [
   {
@@ -50,56 +50,20 @@ const tempWatchedData = [
 const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
-const KEY = "d37b1da0";
-
 export default function App() {
-  const [movies, setMovies] = useState([]);
-  const [watched, setWatched] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
-  const query = "interstellar";
+  const [movies, setMovies] = useState(tempMovieData);
+  const [watched, setWatched] = useState(tempWatchedData);
 
-  useEffect(function () {
-    async function fetchData() {
-      try {
-        setIsLoading(true);
-        const res = await fetch(
-          `https://www.omdbapi.com/?i=tt3896198&apikey=${KEY}&s=${query}`
-        );
-
-        if (!res.ok) throw new Error("something went wrong");
-
-        const data = await res.json();
-        console.log(data);
-        if (data.Response === "False") throw new Error("Movie not found");
-
-        setMovies(data.Search);
-        setIsLoading(false);
-      } catch (err) {
-        console.log(err.message);
-        setError(err.message);
-      } finally {
-        setIsLoading(false);
-      }
-    }
-    fetchData();
-  }, []);
-  console.log(error);
   return (
     <>
       <NavBar>
         <Search />
         <NumResult movies={movies} />
       </NavBar>
+
       <Main>
         <Box>
-          {/* {isLoading ? (
-            <Loader />
-          ) : (
-            <MovieList movies={movies} />
-          )} */}
-
-         
+          <MovieList movies={movies} />
         </Box>
 
         <Box>
@@ -110,12 +74,6 @@ export default function App() {
     </>
   );
 }
-
-function Loader() {
-  return <p className="loader">Loading...</p>;
-}
-
-
 
 function Main({ children }) {
   return <main className="main">{children}</main>;
