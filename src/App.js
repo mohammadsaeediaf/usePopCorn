@@ -99,7 +99,9 @@ export default function App() {
             <MovieList movies={movies} />
           )} */}
 
-         
+          {isLoading && <Loader />}
+          {error && <ErrorMessage message={error} />}
+          {!isLoading && !error && <MovieList movies={movies} />}
         </Box>
 
         <Box>
