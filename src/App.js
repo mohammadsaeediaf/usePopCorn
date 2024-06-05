@@ -86,7 +86,6 @@ export default function App() {
           if (!res.ok) throw new Error("something went wrong");
 
           const data = await res.json();
-          console.log(data);
           if (data.Response === "False") throw new Error("Movie not found");
 
           setMovies(data.Search);
@@ -109,7 +108,6 @@ export default function App() {
     },
     [query]
   );
-  console.log(error);
   return (
     <>
       <NavBar>
@@ -382,7 +380,7 @@ function WatchedSummary({ watched }) {
         </p>
       </div>
     </div>
-  ); 
+  );
 }
 
 function WatchedList({ watched }) {
