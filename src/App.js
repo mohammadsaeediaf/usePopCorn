@@ -269,6 +269,7 @@ function Movie({ movie, onSelectedId }) {
   );
 }
 
+
 function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
   const [movie, setMovie] = useState({});
   const [isLoading, setIsLoading] = useState(false);
