@@ -59,7 +59,7 @@ export default function App() {
   const [watched, setWatched] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-  const [query, setQuery] = useState("interstellar");
+  const [query, setQuery] = useState("");
   const [selectedId, setSelectedId] = useState("");
 
   function handleSelectedId(id) {
@@ -112,7 +112,10 @@ export default function App() {
         return;
       }
 
+      
+      handleCloseMovie();
       fetchData();
+
       return function () {
         controller.abort();
       };
