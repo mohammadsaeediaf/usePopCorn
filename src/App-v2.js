@@ -26,7 +26,7 @@ const tempMovieData = [
   },
 ];
 
-const tempWatchedData = [
+nconst tempWatchedData = [
   {
     imdbID: "tt1375666",
     Title: "Inception",
@@ -61,11 +61,12 @@ export default function App() {
   const [error, setError] = useState("");
   const [query, setQuery] = useState("");
   const [selectedId, setSelectedId] = useState("");
-
-  const [watched, setWatched] = useState(function () {
+  
+  const [watched, setWatched] = useState(function(){
     const storedValue = localStorage.getItem("watched");
     return JSON.parse(storedValue);
   });
+
 
   function handleSelectedId(id) {
     setSelectedId((selectedId) => (id === selectedId ? null : id));
@@ -127,14 +128,11 @@ export default function App() {
     },
     [query]
   );
-  console.log(watched);
+  console.log(watched)
 
-  useEffect(
-    function () {
-      localStorage.setItem("watched", JSON.stringify(watched));
-    },
-    [watched]
-  );
+  useEffect(function(){
+    localStorage.setItem("watched" , JSON.stringify(watched));
+  },[watched])
 
   return (
     <>
