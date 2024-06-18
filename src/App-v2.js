@@ -1,5 +1,5 @@
 // import { setSelectionRange } from "@testing-library/user-event/dist/utils";
-import { Children, useEffect, useRef, useState } from "react";
+import { Children, useEffect, useState } from "react";
 import StarRating from "./starRating";
 
 const tempMovieData = [
@@ -26,7 +26,7 @@ const tempMovieData = [
   },
 ];
 
-const tempWatchedData = [
+nconst tempWatchedData = [
   {
     imdbID: "tt1375666",
     Title: "Inception",
@@ -61,11 +61,12 @@ export default function App() {
   const [error, setError] = useState("");
   const [query, setQuery] = useState("");
   const [selectedId, setSelectedId] = useState("");
-
-  const [watched, setWatched] = useState(function () {
+  
+  const [watched, setWatched] = useState(function(){
     const storedValue = localStorage.getItem("watched");
     return JSON.parse(storedValue);
   });
+
 
   function handleSelectedId(id) {
     setSelectedId((selectedId) => (id === selectedId ? null : id));
@@ -127,13 +128,11 @@ export default function App() {
     },
     [query]
   );
+  console.log(watched)
 
-  useEffect(
-    function () {
-      localStorage.setItem("watched", JSON.stringify(watched));
-    },
-    [watched]
-  );
+  useEffect(function(){
+    localStorage.setItem("watched" , JSON.stringify(watched));
+  },[watched])
 
   return (
     <>
@@ -206,21 +205,6 @@ function Logo() {
 }
 
 function Search({ query, setQuery }) {
-  const inputEl = useRef(null);
-  useEffect(function () {
-    function callback(e) {
-      if (document.activeElement === inputEl.current) return;
-
-      if (e.code === "Enter") {
-        inputEl.current.focus();
-        setQuery("");
-      }
-    }
-
-    document.addEventListener("keydown", callback);
-    return () => document.addEventListener("keydown", callback);
-  }, []);
-
   return (
     <input
       className="search"
@@ -228,7 +212,6 @@ function Search({ query, setQuery }) {
       placeholder="Search movies..."
       value={query}
       onChange={(e) => setQuery(e.target.value)}
-      ref={inputEl}
     />
   );
 }
